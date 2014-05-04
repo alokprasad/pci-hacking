@@ -62,3 +62,9 @@ root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
 `-- unbind
 
 2 directories, 5 files
+
+== 4) Bind the device with the new driver
+
+*To bind a device to a driver, the device must first not be controlled by any other driver.*
+
+* To ensure this, look for the "driver" symlink in device directory *
