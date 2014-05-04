@@ -32,6 +32,8 @@ root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
 
 
 
+
+
 ==  Unbinding a device from a driver. Write the bus id of the device to unbind file==
 
 echo 0000:00:08.0 > /sys/bus/pci/drivers/e1000/unbind
