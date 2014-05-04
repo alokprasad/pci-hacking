@@ -69,6 +69,8 @@ root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
 
 * To ensure this, look for the "driver" symlink in device directory *
 
+* There is no field driver listed below, which means no driver is bind to the device *
+
 root@ankit-laptop:/# tree /sys/bus/pci/devices/0000\:00\:08.0
 
 /sys/bus/pci/devices/0000:00:08.0
@@ -126,3 +128,59 @@ root@ankit-laptop:/# tree /sys/bus/pci/devices/0000\:00\:08.0
 * To bind, simply write the bus id of the device into the bind file for that driver. *
 
 echo 0000:00:08.0 > /sys/bus/pci/drivers/pci_my_skel/bind
+
+== 6) Verify the tree with the driver attached or not==
+
+* The driver field is seen below and the module attached is pci_my_skel*
+
+root@ankit-laptop:/# tree /sys/bus/pci/devices/0000\:00\:08.0/
+
+/sys/bus/pci/devices/0000:00:08.0/
+
+|-- broken_parity_status
+
+|-- class
+
+|-- config
+
+|-- device
+
+|-- driver -> ../../../bus/pci/drivers/pci_my_skel
+
+|-- enable
+
+|-- irq
+
+|-- local_cpulist
+
+|-- local_cpus
+
+|-- modalias
+
+|-- msi_bus
+
+|-- power
+
+|   `-- wakeup
+
+|-- remove
+
+|-- rescan
+
+|-- reset
+
+|-- resource
+
+|-- resource0
+
+|-- resource2
+
+|-- subsystem -> ../../../bus/pci
+
+|-- subsystem_device
+
+|-- subsystem_vendor
+
+|-- uevent
+
+3 directories, 21 files
