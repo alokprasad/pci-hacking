@@ -1,0 +1,27 @@
+#labels Phase-Support
+=  Bind and Unbind a PCI device to device driver =
+
+Manual driver binding and unbinding can be done with this feature
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
+
+*In sysfs tree, every driver now has bind and unbind files associated with it*
+
+root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
+/sys/bus/pci/drivers/e1000/
+|-- 0000:00:03.0 -> ../../../../devices/pci0000:00/0000:00:03.0
+|-- 0000:00:08.0 -> ../../../../devices/pci0000:00/0000:00:08.0
+|-- bind
+|-- module -> ../../../../module/e1000
+|-- new_id
+|-- remove_id
+|-- uevent
+`-- unbind
+
+3 directories, 5 files
