@@ -68,3 +68,61 @@ root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
 *To bind a device to a driver, the device must first not be controlled by any other driver.*
 
 * To ensure this, look for the "driver" symlink in device directory *
+
+root@ankit-laptop:/# tree /sys/bus/pci/devices/0000\:00\:08.0
+
+/sys/bus/pci/devices/0000:00:08.0
+
+|-- broken_parity_status
+
+|-- class
+
+|-- config
+
+|-- device
+
+|-- enable
+
+|-- irq
+
+|-- local_cpulist
+
+|-- local_cpus
+
+|-- modalias
+
+|-- msi_bus
+
+|-- power
+
+|   `-- wakeup
+
+|-- remove
+
+|-- rescan
+
+|-- reset
+
+|-- resource
+
+|-- resource0
+
+|-- resource2
+
+|-- subsystem -> ../../../bus/pci
+
+|-- subsystem_device
+
+|-- subsystem_vendor
+
+|-- uevent
+
+`-- vendor
+
+2 directories, 21 files
+
+== 5) Bind the new driver to the device 0000:00:08.0 ==
+
+* To bind, simply write the bus id of the device into the bind file for that driver. *
+
+echo 0000:00:08.0 > /sys/bus/pci/drivers/pci_my_skel/bind
