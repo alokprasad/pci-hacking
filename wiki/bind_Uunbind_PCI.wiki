@@ -6,7 +6,7 @@ Manual driver binding and unbinding can be done with this feature
 In sysfs tree, every driver now has bind and unbind files associated with it
 
 
-==Verify which driver has been bind to the device using the tree==
+==  Verify which driver has been bind to the device using the tree==
 
 root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/  
 
@@ -32,6 +32,6 @@ root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
 
 
 
+==  Unbinding a device from a driver. Write the bus id of the device to unbind file==
 
-
-
+echo 0000:00:08.0 > /sys/bus/pci/drivers/e1000/unbind
