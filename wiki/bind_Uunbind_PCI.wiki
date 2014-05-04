@@ -3,14 +3,16 @@
 
 Manual driver binding and unbinding can be done with this feature
 
+In sysfs tree, every driver now has bind and unbind files associated with it
 
-= Details =
 
-==In sysfs tree, every driver now has bind and unbind files associated with it==
+==Verify which driver has been bind to the device using the tree==
 
-  root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
-  /sys/bus/pci/drivers/e1000/
-  |-- 0000:00:03.0 -> ../../../../devices/pci0000:00/0000:00:03.0
+root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/  
+
+/sys/bus/pci/drivers/e1000/
+
+|-- 0000:00:03.0 -> ../../../../devices/pci0000:00/0000:00:03.0
 
 |-- 0000:00:08.0 -> ../../../../devices/pci0000:00/0000:00:08.0
 
@@ -27,3 +29,9 @@ Manual driver binding and unbinding can be done with this feature
 `-- unbind
 
 3 directories, 5 files
+
+
+
+
+
+
