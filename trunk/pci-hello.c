@@ -1,3 +1,10 @@
+/* Hello World Program to Understand PCI Module Programming, This
+ * Program mainly show probe being called when a matching device 
+ * is called.
+ * Also probe can read config byte as it is reading device at offset
+ * at 0x02 of configuration space
+*/
+
 #include<linux/kernel.h>
 #include<linux/module.h>
 #include<linux/pci.h>
