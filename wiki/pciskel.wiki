@@ -32,9 +32,9 @@ static unsigned char skel_get_revision(struct pci_dev *dev)
 static int probe(struct pci_dev *dev, const struct pci_device_id *id)
 {
 	int result;
-	/* Do probing type stuff here.  
-	 * Like calling request_region();
-	 */
+
+	/* Do probing type */
+
 	if ((result = pci_enable_device(dev)) < 0) {
 		return result;
 	}
@@ -45,9 +45,9 @@ static int probe(struct pci_dev *dev, const struct pci_device_id *id)
 
 static void remove(struct pci_dev *dev)
 {
-	/* clean up any allocated resources and stuff here.
-	 * like call release_region();
-	 */
+	/* clean up any allocated resources and stuff here. */
+
+	/* like call release_region();	 */
 }
 
 static struct pci_driver pci_driver = {
