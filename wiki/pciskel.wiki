@@ -1,16 +1,24 @@
 #Sample pci-skel.c driver
 
 #include <linux/kernel.h>
+
 #include <linux/module.h>
+
 #include <linux/pci.h>
+
 #include <linux/init.h>
 
 
+
 static struct pci_device_id ids[] = {
+
         { PCI_DEVICE(0x8086, 0x100E), }
+
 	{ PCI_DEVICE(PCI_VENDOR_ID_INTEL, CI_DEVICE_ID_INTEL_82801AA_3), },
+
 	{ 0, }
 };
+
 MODULE_DEVICE_TABLE(pci, ids);
 
 static unsigned char skel_get_revision(struct pci_dev *dev)
