@@ -1,0 +1,64 @@
+== __init ==
+
+*Example 1*
+
+__init - kernel takes this keyword as hint and is used only during the initialization phase and frees up used memory resources
+
+You should add __init immediately before the function name, like:
+static void __init initme(int x, int y)
+{
+     extern int z; z = x * y;
+}
+
+
+*Example 2*
+
+If the function has a prototype somewhere, you can also add __init between closing brace of the prototype and semicolon:
+
+extern int initialize_foobar_device(int, int, int) __init;
+
+
+*Example 3*
+
+For initialized data:
+You should insert __initdata between the variable name and equal sign followed by value, e.g.:
+This variable should be initialized not at file scope(global variable), rather should be within a function 
+Also data cannot be "const"
+
+static int init_variable __initdata = 0;
+static char linux_logo[] __initdata = { 0x32, 0x36, ... };
+
+
+*Example 4*
+
+__devexit - 
+
+Functions marked as __devexit may be discarded at kernel link time, depending on config options.  
+Pointers to __devexit functions must use __devexit_p(function_name), the wrapper will
+insert either the function_name or NULL, depending on the config options.
+
+If config option is module or hotplug, __devexit can be called 
+If config option is driver, __devexit is NULL, so there is no meaning calling here
+
+#if defined(MODULE) || defined(CONFIG_HOTPLUG)
+#define __devexit_p(x) x
+#else
+#define __devexit_p(x) NULL
+#endif
+
+#endif /* _LINUX_INIT_H */
+
+
+== IMP NOTE: .init and .exit are the init section of the driver ==
+
+/*
+ * Mark functions and data as being only used at initialization
+ * or exit time.
+ */
+#define __init		__attribute__ ((__section__ (".text.init")))
+#define __exit		__attribute__ ((unused, __section__(".text.exit")))
+#define __initdata	__attribute__ ((__section__ (".data.init")))
+#define __exitdata	__attribute__ ((unused, __section__ (".data.exit")))
+#define __initsetup	__attribute__ ((unused,__section__ (".setup.init")))
+#define __init_call	__attribute__ ((unused,__section__ (".initcall.init")))
+#define __exit_call	__attribute__ ((unused,__section__ (".exitcall.exit")))
