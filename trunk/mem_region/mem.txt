@@ -23,6 +23,8 @@ f0820000-f083ffff : 0000:00:08.0
   f0820000-f083ffff : e1000
 f0840000-f0841fff : 0000:00:0d.0
   f0840000-f0841fff : ahci
+
 f0842000-f0842003 : memIO_device
+
 fee00000-fee00fff : Local APIC
 fffc0000-ffffffff : reserved
