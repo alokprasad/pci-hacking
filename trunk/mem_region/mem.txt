@@ -1,3 +1,5 @@
+cat /proc/iomem
+
 00000000-00001fff : System RAM
 00002000-00005fff : reserved
 00006000-0009fbff : System RAM
