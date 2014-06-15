@@ -1,3 +1,5 @@
+cat /proc/ioports
+
 0000-001f : dma1
 0020-0021 : pic1
 0040-0043 : timer0
