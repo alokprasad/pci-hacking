@@ -1,0 +1,25 @@
+- Then read the config address space of the device address and prints it in dmesg 
+- This can also be verified in the lspci output
+
+*** dmesg output ***
+[ 8637.427023] *** inside init - (pci_my_skel) ***
+[ 8637.427154] *** inside probe - (pci_my_skel) ***
+[ 8637.427191] PCI_VENDOR_ID : 0x8086
+[ 8637.427212] PCI_DEVICE_ID : 0x100e
+[ 8637.427246] PCI_REVISION_ID : 0x2
+[ 8637.427280] BASE_ADDRESS_REGISTER_0 - 0x00000010, VAL : 0xf0840000
+[ 8637.427303] BASE_ADDRESS_REGISTER_1 - 0x00000014, VAL : 0x0
+[ 8637.427326] BASE_ADDRESS_REGISTER_2 - 0x00000018, VAL : 0xd249
+[ 8637.427348] BASE_ADDRESS_REGISTER_3 - 0x0000001c, VAL : 0x0
+[ 8637.427401] BASE_ADDRESS_REGISTER_4 - 0x00000020, VAL : 0x0
+[ 8637.427424] BASE_ADDRESS_REGISTER_5 - 0x00000024, VAL : 0x0
+[ 8637.427447] PCI_INTERRUPT_LINE : 11
+[ 8637.427467] PCI_INTERRUPT_PIN : 1
+
+*** lspci output ***
+lspci -d 00:09:0 -x
+00:09.0 Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 02)
+00: 86 80 0e 10 03 00 30 02 02 00 00 02 00 40 00 00
+10: 00 00 84 f0 00 00 00 00 49 d2 00 00 00 00 00 00
+20: 00 00 00 00 00 00 00 00 00 00 00 00 86 80 1e 00
+30: 00 00 00 00 dc 00 00 00 00 00 00 00 0b 01 ff 00
