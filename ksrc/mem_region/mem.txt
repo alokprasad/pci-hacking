@@ -1,0 +1,32 @@
+cat /proc/iomem
+
+00000000-00001fff : System RAM
+00002000-00005fff : reserved
+00006000-0009fbff : System RAM
+0009fc00-0009ffff : reserved
+000a0000-000bffff : Video RAM area
+000c0000-000c7fff : Video ROM
+000e2000-000e6fff : Adapter ROM
+000f0000-000fffff : reserved
+  000f0000-000fffff : System ROM
+00100000-3ffeffff : System RAM
+  00100000-00591d42 : Kernel code
+  00591d43-007a2e87 : Kernel data
+  0084d000-008dbeb7 : Kernel bss
+3fff0000-3fffffff : ACPI Tables
+e0000000-e0ffffff : 0000:00:02.0
+f0000000-f001ffff : 0000:00:03.0
+  f0000000-f001ffff : e1000
+f0400000-f07fffff : 0000:00:04.0
+f0800000-f0803fff : 0000:00:04.0
+f0804000-f0804fff : 0000:00:06.0
+  f0804000-f0804fff : ohci_hcd
+f0820000-f083ffff : 0000:00:08.0
+  f0820000-f083ffff : e1000
+f0840000-f0841fff : 0000:00:0d.0
+  f0840000-f0841fff : ahci
+
+f0842000-f0842003 : memIO_device
+
+fee00000-fee00fff : Local APIC
+fffc0000-ffffffff : reserved
