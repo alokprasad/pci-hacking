@@ -1,0 +1,63 @@
+=============================================================================================================
+
+socket(); - used in server & client
+int sockid = socket(family, type, protocol);
+
+close(); - used in server & client
+status = close(sockid);
+
+bind(); - used in server only
+int status = bind(sockid, &addrport, size);
+
+listen(); - used in server only
+int status = listen(sockid, queueLimit);
+
+accept(); - used in server only
+int s= accept(sockid, &clientAddr, &addrLen);
+
+connect(); - used only in client only
+int status = connect(sockid, &foreignAddr, addrlen);
+
+send(); 
+int count = send(sockid, msg, msgLen, flags);
+
+receive();
+int count = recv(sockid, recvBuf, bufLen, flags);
+
+
+=============================================================================================================
+When both server and client are run on the same machine. Give the server IP as loop back address. 
+
+Compile the server as,
+#gcc server.c -o server
+
+Execute the server binary
+#./server
+
+
+
+Compile the client as,
+#gcc client.c -o client
+
+Execute the client binary as,
+#./client 127.0.0.1
+
+
+
+Ouput seen would be,
+Fri Jul 11 05:56:13 2014
+
+================================================================================================================
+netstat shows, server running at port 5000
+
+root@ankit-laptop:/home/ankit/experiments/sockets# netstat -ntlp
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1418/sshd
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      926/cupsd
+tcp        0      0 0.0.0.0:5000            0.0.0.0:*               LISTEN      2003/server
+tcp6       0      0 :::22                   :::*                    LISTEN      1418/sshd
+tcp6       0      0 ::1:631                 :::*                    LISTEN      926/cupsd
+
+
+================================================================================================================
