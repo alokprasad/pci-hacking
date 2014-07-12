@@ -1,7 +1,7 @@
 /* Socket programming for client.c - This works as chat application */
 
 #include <stdio.h>
-#include <sys/socket.h>	/* socket(), bind(), accept(), connect() */
+#include <sys/socket.h>	/* AF_INET, socket(), bind(), accept(), connect() */
 #include <netinet/in.h>	/* struct sockaddr_in, struct sin_addr.s_addr */
 #include <netdb.h>	/* gethostbyname() */ 
 #include <stdlib.h> 	/* exit() */
