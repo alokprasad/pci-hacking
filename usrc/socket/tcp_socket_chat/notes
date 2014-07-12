@@ -1,0 +1,78 @@
+=========================================================================================
+## TO compile the server, 
+gcc server.c -o server
+
+## To run the server,
+./server <portnumber>
+
+=========================================================================================
+## TO compile the client, 
+gcc client.c -o client
+
+## To run the server,
+./client <hostname_of_server> <portnumber>
+
+=========================================================================================
+root@ankit-laptop:/home/ankit/experiments/socket/tcp_socket_chat# ./server 8989
+Client message: hi
+
+Please enter the message: hello
+Client message: good morning
+
+Please enter the message: very good morning
+Client message: nice
+
+Please enter the message: very nice
+Client message: ok fuck off
+
+Please enter the message: bye
+Client message: bye
+
+
+root@ankit-laptop:/home/ankit/experiments/socket/tcp_socket_chat# ./client ankit-laptop 8989
+Please enter the message: hi
+Server message: hello
+
+Please enter the message: good morning
+Server message: very good morning
+
+Please enter the message: nice
+Server message: very nice
+
+Please enter the message: ok fuck off
+Server message: bye
+
+Please enter the message: bye
+=========================================================================================
+
+MISC
+
+1) #include <netdb.h> - has few functions important to find the hostname, ipaddr and others
+2) #include <string.h> - bcopy() and bzero(), which are deprecated, we can use memset and memcpy instead.
+3) In the client.c, gethostbyname() gets the server name and stores to struct hostent 
+4) In the bcopy, we copy the server address. So the connect() happens to the server appropriately. 
+
+struct hostent {
+	char  *h_name;		/* official name of host */
+	char **h_aliases;	/* alias list */
+	int    h_addrtype;	/* host address type */
+	int    h_length;	/* length of address */
+	char **h_addr_list;	/* list of addresses */
+}
+
+
+=========================================================================================
+PROTOTYPES
+
+int     socket(int <family>, int <socket_type>, int <default 0>);
+int     bind(int <sockfd>, const struct sockaddr * <serv address>, socklen_t <sizeof(serv address));
+int     listen(int <sockfd>, int <num of connections>);
+int     accept(int <sockfd>, struct sockaddr *restrict <client address>, socklen_t *restrict <sizeof(client address)>);
+int     connect(int <sockfd>, const struct sockaddr * <serv address>, socklen_t <sizeof(serv address)>);
+
+
+=========================================================================================
+
+
+
+
