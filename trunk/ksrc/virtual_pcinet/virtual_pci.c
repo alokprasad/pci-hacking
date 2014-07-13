@@ -245,4 +245,3 @@ static void __exit pci_exit(void)
 module_init(pci_init);
 module_exit(pci_exit);
 MODULE_LICENSE("GPL");
-
