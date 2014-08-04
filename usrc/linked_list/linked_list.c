@@ -3,7 +3,8 @@
  * This performs the following operations
  * 1) insert a number in front/rear
  * 2) remove a number in front/rear
- * 3) display the list
+ * 3) delete a number from a given position
+ * 4) display the list
  */
 
 #include <stdio.h>
@@ -32,7 +33,7 @@ NODE getnode()
 }
 
 /* Inserts an element at the end of the list */
-void insert_rear(NODE first)
+NODE insert_rear(NODE first)
 {
 	int num;
 	NODE temp, cur;
@@ -48,6 +49,7 @@ void insert_rear(NODE first)
 	temp->data = num;
 	temp->link = NULL;	
 	cur -> link = temp;
+	return(first);
 }
 
 /* Inserts an element at the front of the list */
@@ -64,13 +66,50 @@ NODE insert_front(NODE first)
 	return (temp);
 }
 
+/* Insert a element at a given position */
+NODE insert_pos(NODE first)
+{
+	int num, pos;
+	NODE temp, cur, prev;
+
+	printf("\n Enter a number to insert: ");
+	scanf("%d", &num);
+	printf("\n Enter the position: ");
+	scanf("%d", &pos);
+	
+	temp = getnode();
+	temp->link = NULL;
+	temp->data = num;
+
+	if (pos == 1) {
+		temp->link = first;
+		return (temp);
+	}
+	
+	cur = first;
+	prev = NULL;
+	while ((cur->link != NULL) && (pos > 1)){
+		prev = cur;
+		cur = cur->link;
+		pos--; 
+	}
+	if (cur == NULL) {
+		printf("Invalid position for insertion");
+		return(first);
+	}
+	prev->link = temp;
+	temp->link = cur;
+	return(first);
+}
+
 /* Deletes an element at the end of the list */
-void delete_rear(NODE first)
+NODE delete_rear(NODE first)
 {
 	NODE temp, cur;
 	
 	if(first == NULL) {
 		printf("List is empty \n");
+		return (first);
 	}
 
 	temp = first;
@@ -95,6 +134,40 @@ NODE delete_front(NODE first)
 	return (first);
 }
 
+/* Deletes an element from the given position */
+NODE delete_pos(NODE first)
+{
+	NODE temp, prev, cur;
+	int pos;
+	
+	printf("\n Enter the position: ");
+	scanf("%d", &pos);
+
+	if(first == NULL) {
+		printf("List is empty \n");
+		return (first);
+	}
+	
+	if (pos ==1) {
+		first->link = temp;
+		printf("Deleted element is : %d", first->data);
+		return (temp);
+	}
+	
+	cur = first;
+	prev = NULL;
+	while((cur->link != NULL) && (pos > 1)) {
+		prev = cur;
+		cur = cur->link;
+		pos--;
+	}
+	printf("Deleted element is : %d", cur->data);
+	prev->link = cur->link;
+	
+	return (first);
+}
+
+/* Displays the elements in the list */
 void display(NODE first)
 {
 	if (first == NULL) {
@@ -115,7 +188,8 @@ int main(void)
 	
 	printf("\t\t*** SINGULAR LIST *** \n");
 	while(1) {
-		printf("\n 1.INSERT FRONT \n 2.INSERT REAR \n 3.DELETE FRONT \n 4.DELETE REAR \n 5.DISPLAY LIST \n 6.EXIT \n");
+		printf("\n 1.INSERT FRONT \n 2.INSERT REAR \n 3.DELETE FRONT \n 4.DELETE REAR \n"
+			" 5.INSERT POS \n 6.DELETE POS \n 7.DISPLAY LIST \n 8.EXIT \n");
 		scanf("%d", &choice);
 		switch(choice) {
 			case 1: first = insert_front(first);
@@ -123,7 +197,7 @@ int main(void)
 				display(first);
 				break;
 		
-			case 2:	insert_rear(first);
+			case 2:	first = insert_rear(first);
 				printf("\n After Insertion, list elements are: ");
 				display(first);
 				break;
@@ -137,8 +211,18 @@ int main(void)
 				printf("\n After deletion, list elements are: ");
 				display(first);
 				break;
+		
+			case 5:	first = insert_pos(first);
+				printf("\n After insertion, list elements are: ");
+				display(first);
+				break;
+	
+			case 6: delete_pos(first);
+				printf("\n After deletion, list elements are: ");
+				display(first);
+				break;	
 
-			case 5: printf("\n List elements are: ");
+			case 7: printf("\n List elements are: ");
 				display(first);
 				break;
 
