@@ -8,6 +8,10 @@ struct node {
 };
 typedef struct node * NODE;
 
+#define max(a, b)	if(a > b) return a; else return b;
+
+int count_n, count_l;
+
 NODE getnode()
 {
 	NODE temp;
@@ -44,28 +48,22 @@ void postorder(NODE root)
 
 void count_nodes(NODE root)
 {
-	int count;
-
 	if(root != NULL) {
 		count_nodes(root->llink);
-		count++;
+		count_n++;
 		count_nodes(root->rlink);
 	}
-	printf("Number of nodes in the tree are: %d",  count);
 }
 
 void count_leaf(NODE root)
 {
-	int count;
-
 	if (root != NULL) {
-		count_nodes(root->llink);
+		count_leaf(root->llink);
 		if ((root->llink == NULL) && (root->rlink == NULL)) {
-			count++;
+			count_l++;
 		}
-		count_nodes(root->rlink);
+		count_leaf(root->rlink);
 	}
-	printf("Number of leaves in the tree are: %d", count);
 }
 
 int count_height(NODE root)
@@ -73,7 +71,7 @@ int count_height(NODE root)
 	if (root == NULL)
 		return 0;
 	
-	//return (1 + max(count_height(root->llink), count_height(root->rlink)));
+	return (1 + max(count_height(root->llink), count_height(root->rlink)));
 }
 
 NODE insert(NODE root)
@@ -118,7 +116,7 @@ int main()
 	printf("\t\t TREES PROGRAM \n");
 	while(1) {
 		printf("\n 1.INSERT \n 2.INORDER \n 3.PREORDER \n 4.POSTORDER"
-			 "\n 5.COUNT NODES \n 6.COUNT_LEAF \n 7.COUNT HEIGHT \n 8.EXIT \n");
+			 "\n 5.COUNT NODES \n 6.COUNT LEAF \n 7.COUNT HEIGHT \n 8.EXIT \n");
 		scanf("%d", &choice);
 		switch(choice) {
 			case 1: root = insert(root);
@@ -153,6 +151,7 @@ int main()
 					break;
 				}
 				count_nodes(root);
+				printf("Number of nodes in the tree are: %d",  count_n);
 				break;
 
 			case 6: if (root == NULL) {
@@ -160,6 +159,7 @@ int main()
 					break;
 				}
 				count_leaf(root);
+				printf("Number of leaves in the tree are: %d", count_l);
 				break;			
 			
 			case 7: sum = count_height(root);
