@@ -1,3 +1,11 @@
+/*
+ * 1) Creating a binary tree
+ * 2) Traversing the tree using - Preorder, Inorder, Postorder, Level-order
+ * 3) Find the number elements in the tree
+ * 4) Find the number of leaves in the tree
+ * 5) Find the height of the tree
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 	
@@ -7,8 +15,6 @@ struct node {
 	struct node *rlink;
 };
 typedef struct node * NODE;
-
-#define max(a, b)	if(a > b) return a; else return b;
 
 int count_n, count_l;
 
@@ -46,6 +52,29 @@ void postorder(NODE root)
 	}
 }
 
+void printlevel(NODE root, int level)
+{
+        if (root == NULL)
+                return;
+
+        if (level == 1)
+                printf(" %d ", root->data);
+        else {
+                printlevel(root->llink, level - 1);
+                printlevel(root->rlink, level - 1);
+        }
+}
+
+void levelorder(NODE root)
+{
+	int i, h = count_height(root);
+
+	for (i = 1; i <= h; i++) {
+		printf("\n");
+		printlevel(root, i);	
+	}
+}
+
 void count_nodes(NODE root)
 {
 	if(root != NULL) {
@@ -68,10 +97,17 @@ void count_leaf(NODE root)
 
 int count_height(NODE root)
 {
-	if (root == NULL)
-		return 0;
-	
-	return (1 + max(count_height(root->llink), count_height(root->rlink)));
+	int lheight = 0, rheight = 0;
+
+	if (root->llink != NULL)
+		lheight = count_height(root->llink);
+	if (root->rlink != NULL)
+		rheight = count_height(root->rlink);
+
+	if (lheight > rheight)
+		return (lheight + 1);
+	else
+		return (rheight + 1);
 }
 
 NODE insert(NODE root)
@@ -115,8 +151,8 @@ int main()
 
 	printf("\t\t TREES PROGRAM \n");
 	while(1) {
-		printf("\n 1.INSERT \n 2.INORDER \n 3.PREORDER \n 4.POSTORDER"
-			 "\n 5.COUNT NODES \n 6.COUNT LEAF \n 7.COUNT HEIGHT \n 8.EXIT \n");
+		printf("\n 1.INSERT \n 2.INORDER \n 3.PREORDER \n 4.POSTORDER \n 5.LEVELORDER"
+			 "\n 6.COUNT NODES \n 7.COUNT LEAF \n 8.COUNT HEIGHT \n 9.EXIT \n");
 		scanf("%d", &choice);
 		switch(choice) {
 			case 1: root = insert(root);
@@ -150,11 +186,19 @@ int main()
 					printf("List is empty \n");
 					break;
 				}
+				printf("Levelorder traversal is \n");
+				levelorder(root);
+				break;
+					
+			case 6: if (root == NULL) {
+					printf("List is empty \n");
+					break;
+				}
 				count_nodes(root);
 				printf("Number of nodes in the tree are: %d",  count_n);
 				break;
 
-			case 6: if (root == NULL) {
+			case 7: if (root == NULL) {
 					printf("List is empty \n");
 					break;
 				}
@@ -162,7 +206,7 @@ int main()
 				printf("Number of leaves in the tree are: %d", count_l);
 				break;			
 			
-			case 7: sum = count_height(root);
+			case 8: sum = count_height(root);
 				printf("The height of the tree is : %d \n", sum);
 				break;
 		
