@@ -181,6 +181,23 @@ void display(NODE first)
 	}
 }
 
+/* Reverse a linked list */
+NODE reverse(NODE first)
+{
+	NODE prev = NULL;
+	NODE cur = first;
+	NODE next;
+
+	while (cur != NULL) {
+		next = cur->link;
+		cur->link = prev;
+		prev = cur;
+		cur = next;
+	}
+	first = prev;
+	return (first);
+}
+
 int main(void)
 {
 	NODE first = NULL;
@@ -189,7 +206,7 @@ int main(void)
 	printf("\t\t*** SINGULAR LIST *** \n");
 	while(1) {
 		printf("\n 1.INSERT FRONT \n 2.INSERT REAR \n 3.DELETE FRONT \n 4.DELETE REAR \n"
-			" 5.INSERT POS \n 6.DELETE POS \n 7.DISPLAY LIST \n 8.EXIT \n");
+			" 5.INSERT POS \n 6.DELETE POS \n 7.DISPLAY LIST \n 8.REVERSE \n 9.EXIT \n");
 		scanf("%d", &choice);
 		switch(choice) {
 			case 1: first = insert_front(first);
@@ -225,6 +242,11 @@ int main(void)
 			case 7: printf("\n List elements are: ");
 				display(first);
 				break;
+
+			case 8: first = reverse(first);
+				printf("\n The reversed list is: ");
+				display(first);
+				break;			
 
 			default:exit(0);
 		}
