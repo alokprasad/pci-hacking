@@ -1,0 +1,1 @@
+compile all the files at once, as gcc *.c
