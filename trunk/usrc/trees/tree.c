@@ -4,6 +4,7 @@
  * 3) Find the number elements in the tree
  * 4) Find the number of leaves in the tree
  * 5) Find the height of the tree
+ * 6) search a element in the tree
  */
 
 #include <stdio.h>
@@ -110,6 +111,20 @@ int count_height(NODE root)
 		return (rheight + 1);
 }
 
+int tree_search(NODE root, int key)
+{
+	while (root != NULL) {
+		if (key > root->data)
+			return tree_search(root->rlink, key);
+		else if (key < root->data)
+			return tree_search(root->llink, key);
+		else
+			return 1;
+	}
+	return 0;
+}
+
+
 NODE insert(NODE root)
 {
 	int num;
@@ -146,13 +161,13 @@ NODE insert(NODE root)
 
 int main()
 {
-	int choice, sum;
+	int choice, sum, key, res;
 	NODE root = NULL;
 
 	printf("\t\t TREES PROGRAM \n");
 	while(1) {
 		printf("\n 1.INSERT \n 2.INORDER \n 3.PREORDER \n 4.POSTORDER \n 5.LEVELORDER"
-			 "\n 6.COUNT NODES \n 7.COUNT LEAF \n 8.COUNT HEIGHT \n 9.EXIT \n");
+			 "\n 6.COUNT NODES \n 7.COUNT LEAF \n 8.COUNT HEIGHT \n 9.SEARCH \n 10.EXIT \n");
 		scanf("%d", &choice);
 		switch(choice) {
 			case 1: root = insert(root);
@@ -209,7 +224,17 @@ int main()
 			case 8: sum = count_height(root);
 				printf("The height of the tree is : %d \n", sum);
 				break;
-		
+			
+			case 9: printf("Enter a key to search \n");
+				scanf("%d", &key);
+				res = tree_search(root, key);
+				
+				if (res == 1)
+					printf("Element found \n");
+				else
+					printf("Element not found \n");
+				break;
+				
 			default: exit(0);	
 		}
 	}
