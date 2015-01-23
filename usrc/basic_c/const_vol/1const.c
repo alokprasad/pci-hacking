@@ -1,6 +1,6 @@
 /*
  * 1) The const is a keyword and not a data type
- * 2) const static int i; 
+ * 2) const static int g; 
  * 	This can be used, however the variable 'g' cannot be changed 
  * 3) volatile register int l = 20;	// This works
  *
