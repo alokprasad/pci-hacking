@@ -1,0 +1,185 @@
+# Bind and Unbind a PCI device to device driver #
+
+Manual driver binding and unbinding can be done with this feature
+
+In sysfs tree, every driver now has bind and unbind files associated with it
+
+
+## 1) Verify which driver has been bind to the device using the tree ##
+
+**Here there are two devices with their bus ids 0000:00:03:0 and 0000:00:08:0 and module binded is e1000**
+
+root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
+
+/sys/bus/pci/drivers/e1000/
+
+|-- 0000:00:03.0 -> ../../../../devices/pci0000:00/0000:00:03.0
+
+|-- 0000:00:08.0 -> ../../../../devices/pci0000:00/0000:00:08.0
+
+|-- bind
+
+|-- module -> ../../../../module/e1000
+
+|-- new\_id
+
+|-- remove\_id
+
+|-- uevent
+
+`-- unbind
+
+3 directories, 5 files
+
+## 2) Unbinding a device from a driver. Write the bus id of the device to unbind file ##
+
+**Lets unbind the 0000:00:08.0 device**
+
+echo 0000:00:08.0 > /sys/bus/pci/drivers/e1000/unbind
+
+
+## 3) Now the device will no longer be bound to the driver, to verify run as below ##
+
+**When noticed closely, the device 0000:00:08.0 has been unbind from the tree**
+
+root@ankit-laptop:/# tree /sys/bus/pci/drivers/e1000/
+
+/sys/bus/pci/drivers/e1000/
+
+|-- 0000:00:03.0 -> ../../../../devices/pci0000:00/0000:00:03.0
+
+|-- bind
+
+|-- module -> ../../../../module/e1000
+
+|-- new\_id
+
+|-- remove\_id
+
+|-- uevent
+
+`-- unbind
+
+2 directories, 5 files
+
+## 4) Bind the device with the new driver ##
+
+**To bind a device to a driver, the device must first not be controlled by any other driver.**
+
+**To ensure this, look for the "driver" symlink in device directory**
+
+**There is no field driver listed below, which means no driver is bind to the device**
+
+root@ankit-laptop:/# tree /sys/bus/pci/devices/0000\:00\:08.0
+
+/sys/bus/pci/devices/0000:00:08.0
+
+|-- broken\_parity\_status
+
+|-- class
+
+|-- config
+
+|-- device
+
+|-- enable
+
+|-- irq
+
+|-- local\_cpulist
+
+|-- local\_cpus
+
+|-- modalias
+
+|-- msi\_bus
+
+|-- power
+
+|   `-- wakeup
+
+|-- remove
+
+|-- rescan
+
+|-- reset
+
+|-- resource
+
+|-- resource0
+
+|-- resource2
+
+|-- subsystem -> ../../../bus/pci
+
+|-- subsystem\_device
+
+|-- subsystem\_vendor
+
+|-- uevent
+
+`-- vendor
+
+2 directories, 21 files
+
+## 5) Bind the new driver to the device 0000:00:08.0 ##
+
+**To bind, simply write the bus id of the device into the bind file for that driver.**
+
+echo 0000:00:08.0 > /sys/bus/pci/drivers/pci\_my\_skel/bind
+
+## 6) Verify the tree with the driver attached or not ##
+
+**The driver field is seen below and the module attached is pci\_my\_skel**
+
+root@ankit-laptop:/# tree /sys/bus/pci/devices/0000\:00\:08.0/
+
+/sys/bus/pci/devices/0000:00:08.0/
+
+|-- broken\_parity\_status
+
+|-- class
+
+|-- config
+
+|-- device
+
+|-- driver -> ../../../bus/pci/drivers/pci\_my\_skel
+
+|-- enable
+
+|-- irq
+
+|-- local\_cpulist
+
+|-- local\_cpus
+
+|-- modalias
+
+|-- msi\_bus
+
+|-- power
+
+|   `-- wakeup
+
+|-- remove
+
+|-- rescan
+
+|-- reset
+
+|-- resource
+
+|-- resource0
+
+|-- resource2
+
+|-- subsystem -> ../../../bus/pci
+
+|-- subsystem\_device
+
+|-- subsystem\_vendor
+
+|-- uevent
+
+3 directories, 21 files
