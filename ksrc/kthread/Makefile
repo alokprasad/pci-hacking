@@ -1,5 +1,5 @@
-obj-m += work_queue.o 
-work_queue-objs :=  workqueue.o
+#make mod=<file>
+obj-m += $(mod).o 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
 
