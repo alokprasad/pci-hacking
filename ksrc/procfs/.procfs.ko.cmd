@@ -1,0 +1,1 @@
+cmd_/home/embsys/pci-hacking/ksrc/procfs/procfs.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/embsys/pci-hacking/ksrc/procfs/procfs.ko /home/embsys/pci-hacking/ksrc/procfs/procfs.o /home/embsys/pci-hacking/ksrc/procfs/procfs.mod.o ;  true
